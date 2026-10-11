@@ -25,6 +25,11 @@ def estimate():
             "error": "Provide valid bedrooms and area_sqm values."
         }), 400
     rent = estimate_rent(bedrooms, area_sqm)
+    record_request(
+    {"bedrooms": bedrooms, "area_sqm": area_sqm},
+    {"estimated_rent_php": rent},
+    "success"
+)
     return jsonify({
         "bedrooms": bedrooms,
         "area_sqm": area_sqm,

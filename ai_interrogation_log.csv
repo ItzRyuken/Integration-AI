@@ -1,2 +1,6 @@
 timestamp,inputs,output,status
 2026-10-12T01:26:53,"{'bedrooms': 2, 'area_sqm': 50}",{'estimated_rent_php': 9815},prototype_test
+2026-10-12T01:55:01,"{'bedrooms': 2, 'area_sqm': 60.0}",{'estimated_rent_php': np.float64(10650.0)},success
+2026-10-12T02:02:49,"{'bedrooms': 2, 'area_sqm': 50}",{'estimated_rent_php': 9815},prototype_test
+2026-10-12T02:14:00,"{'bedrooms': 2, 'area_sqm': 60.0}",{'estimated_rent_php': np.float64(10650.0)},success
+2026-10-12T02:16:12,"{'bedrooms': 2, 'area_sqm': 50}",{'estimated_rent_php': 9815},prototype_test
