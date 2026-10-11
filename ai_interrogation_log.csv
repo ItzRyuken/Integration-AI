@@ -1,0 +1,2 @@
+timestamp,inputs,output,status
+2026-10-12T01:26:53,"{'bedrooms': 2, 'area_sqm': 50}",{'estimated_rent_php': 9815},prototype_test

@@ -1,3 +1,4 @@
+from ai_interrogation_log import record_request
 from flask import Flask, request, jsonify
 from rent_estimator import estimate_rent
 app = Flask(__name__)
