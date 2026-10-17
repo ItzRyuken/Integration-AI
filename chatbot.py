@@ -1,25 +1,36 @@
 import re
-def parse_property_request(message):
+def parse_message(message):
     text = message.lower()
-    bedrooms_match = re.search(r"(\d+)\s*(?:bedrooms?|br|bed)", text)
+    bedrooms_match = re.search(
+        r"(\d+)\s*[- ]?\s*bed(?:room)?s?",
+        text
+    )
     budget_match = re.search(
-        r"(?:below|under|less than|budget of|maximum|max)\s*₱?\s*([\d,]+)",
+        r"(?:under|below|budget(?: of)?|maximum|max(?:imum)?(?: budget)?|less than)\s*₱?\s*([\d,]+)",
         text
     )
     location_match = re.search(
-        r"\bin\s+([a-zA-Z ]+?)(?=\s+(?:below|under|less|with|and)\b|$)",
-        text
+        r"\b(?:in|at|near)\s+(Cainta|Pasig|Quezon City)\b",
+        message,
+        re.IGNORECASE
+    )
+    bedrooms = (
+        int(bedrooms_match.group(1))
+        if bedrooms_match else None
+    )
+    max_rent = (
+        int(budget_match.group(1).replace(",", ""))
+        if budget_match else None
+    )
+    location = (
+        location_match.group(1)
+        if location_match else None
     )
     return {
-        "bedrooms": int(bedrooms_match.group(1)) if bedrooms_match else None,
-        "max_rent": (
-            int(budget_match.group(1).replace(",", ""))
-            if budget_match else None
-        ),
-        "location": location_match.group(1).strip() if location_match else None
+        "bedrooms": bedrooms,
+        "max_rent": max_rent,
+        "location": location
     }
 if __name__ == "__main__":
-    query = input("Describe the property you want: ")
-    result = parse_property_request(query)
-    print("Interpreted search:")
-    print(result)
+    message = "Find me a 2-bedroom property in Cainta under 12,000"
+    print(parse_message(message))

@@ -5,3 +5,5 @@ timestamp,inputs,output,status
 2026-10-12T02:14:00,"{'bedrooms': 2, 'area_sqm': 60.0}",{'estimated_rent_php': np.float64(10650.0)},success
 2026-10-12T02:16:12,"{'bedrooms': 2, 'area_sqm': 50}",{'estimated_rent_php': 9815},prototype_test
 2026-10-12T02:27:39,"{'bedrooms': 2, 'area_sqm': 60.0}",{'estimated_rent_php': np.float64(10650.0)},success
+2026-10-13T03:53:36,"{'bedrooms': 2, 'area_sqm': 50.0, 'location': 'Cainta'}","{'bedrooms': 2, 'area_sqm': 50.0, 'location': 'Cainta', 'estimated_monthly_rent_php': 9560.0, 'status': 'prototype', 'warning': 'Estimate uses fictional sample data.'}",success
+2026-10-14T00:44:42,"{'bedrooms': 2, 'area_sqm': 50.0, 'location': 'Cainta'}","{'bedrooms': 2, 'area_sqm': 50.0, 'location': 'Cainta', 'estimated_monthly_rent_php': 9560.0, 'status': 'prototype', 'warning': 'Estimate uses fictional sample data.'}",success

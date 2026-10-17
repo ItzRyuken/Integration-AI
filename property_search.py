@@ -1,57 +1,75 @@
-from chatbot import parse_property_request
+from chatbot import parse_message
+# Fictional data btw
 properties = [
     {
-        "id": 1,
-        "title": "Apartment in Cainta",
+        "property_id": 1,
+        "title": "Cainta Apartment A",
         "location": "Cainta",
         "bedrooms": 2,
-        "rent": 9500,
+        "monthly_rent": 9500,
         "status": "approved"
     },
     {
-        "id": 2,
-        "title": "House in Cainta",
+        "property_id": 2,
+        "title": "Cainta Family Home",
         "location": "Cainta",
         "bedrooms": 3,
-        "rent": 15000,
+        "monthly_rent": 15000,
         "status": "pending"
     },
     {
-        "id": 3,
-        "title": "Condo in Pasig",
+        "property_id": 3,
+        "title": "Pasig Apartment B",
         "location": "Pasig",
         "bedrooms": 2,
-        "rent": 12000,
+        "monthly_rent": 12000,
+        "status": "approved"
+    },
+    {
+        "property_id": 4,
+        "title": "Quezon City Studio",
+        "location": "Quezon City",
+        "bedrooms": 1,
+        "monthly_rent": 6500,
         "status": "approved"
     }
 ]
 def search_properties(message):
-    filters = parse_property_request(message)
-    results = [
-        p for p in properties
-        if p["status"] == "approved"
-        and (
-            filters["bedrooms"] is None
-            or p["bedrooms"] == filters["bedrooms"]
-        )
-        and (
-            filters["max_rent"] is None
-            or p["rent"] <= filters["max_rent"]
-        )
-        and (
-            filters["location"] is None
-            or filters["location"].lower() in p["location"].lower()
-        )
-    ]
+    criteria = parse_message(message)
+    results = []
+    for property in properties:
+        if property["status"] != "approved":
+            continue
+        if (
+            criteria["bedrooms"] is not None
+            and property["bedrooms"] != criteria["bedrooms"]
+        ):
+            continue
+        if (
+            criteria["max_rent"] is not None
+            and property["monthly_rent"] > criteria["max_rent"]
+        ):
+            continue
+        if (
+            criteria["location"] is not None
+            and property["location"].lower()
+            != criteria["location"].lower()
+        ):
+            continue
+        results.append(property)
     return results
 if __name__ == "__main__":
-    query = input("What property are you looking for? ")
-    results = search_properties(query)
+    message = "Find me a 3-bedroom property in Cainta under 10,000"
+    print("Tenant message:", message)
+    print("\nMatching approved properties:")
+    results = search_properties(message)
     if results:
-        for p in results:
+        for property in results:
             print(
-                f'{p["title"]} | {p["bedrooms"]} bedrooms | '
-                f'PHP {p["rent"]:,}/month'
+                f'{property["title"]} | '
+                f'{property["location"]} | '
+                f'{property["bedrooms"]} bedrooms | '
+                f'PHP {property["monthly_rent"]:,}/month'
             )
     else:
-        print("No approved properties match your search.")
+        print("No matching approved properties found.")
